@@ -5,11 +5,17 @@ using UnityEngine;
 public class PlayerDie : MonoBehaviour
 {
     [SerializeField] private GameObject _skull;
+    private PlayerMovement _playerMovement;
+
+    private void Awake()
+    {
+        _playerMovement = GetComponent<PlayerMovement>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            Die();
+            _playerMovement.Die();
         }
     }
     

@@ -135,4 +135,11 @@ public class PlayerMovement : MonoBehaviour
             body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
+
+    public void Die()
+    {
+        anim.SetTrigger("die");
+        body.velocity = Vector2.zero;
+        body.bodyType = RigidbodyType2D.Static;
+    }
 }
