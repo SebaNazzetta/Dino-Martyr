@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Rigidbody2D body;
-    public BoxCollider2D groundCheck;
-    public LayerMask groundMask;
+    private Rigidbody2D _body;
+    private BoxCollider2D _collision;
+    private PlayerCollision _playerCollision;
+    private Animator _anim;
 
     public float acceleration = 1f;
     [Range(0, 1f)] public float groundDecay = 0.6f;
@@ -18,16 +19,18 @@ public class PlayerMovement : MonoBehaviour
     public float jumpBufferTime = 0.1f;
     public float airControlFactor = 0.8f;  // 🔹 Reduce el control en el aire para evitar saltos inconsistentes
 
-    private bool grounded;
+    [HideInInspector] public bool grounded;
     private float xInput;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
 
-    public Animator anim;
 
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
+        _anim = GetComponentInChildren<Animator>();
+        _body = GetComponent<Rigidbody2D>();
+        _collision = GetComponent<BoxCollider2D>();
+        _playerCollision = GetComponent<PlayerCollision>();
     }
 
     void Update()
@@ -39,8 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        grounded = _playerCollision.IsGrounded();
         HandleXMovement();
-        CheckGround();
         ApplyFriction();
     }
 
@@ -67,14 +70,14 @@ public class PlayerMovement : MonoBehaviour
             // 🔹 Diferente control en el aire para que no afecte el salto
             float controlFactor = grounded ? 1f : airControlFactor;
 
-            float newSpeed = Mathf.Clamp(body.velocity.x + (increment * controlFactor), -maxXSpeed, maxXSpeed);
-            body.velocity = new Vector2(newSpeed, body.velocity.y);
+            float newSpeed = Mathf.Clamp(_body.velocity.x + (increment * controlFactor), -maxXSpeed, maxXSpeed);
+            _body.velocity = new Vector2(newSpeed, _body.velocity.y);
 
             FaceInput();
 
             if (grounded)
             {
-                anim.SetBool("walking", true);
+                _anim.SetBool("walking", true);
             }
         }
     }
@@ -102,44 +105,40 @@ public class PlayerMovement : MonoBehaviour
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
             // 🔹 SOLUCIÓN: Restablecemos completamente la velocidad antes de saltar
-            body.velocity = new Vector2(body.velocity.x * 0.5f, 0);
-            body.velocity += Vector2.up * jumpSpeed;
+            _body.velocity = new Vector2(_body.velocity.x * 0.5f, 0);
+            _body.velocity += Vector2.up * jumpSpeed;
 
             jumpBufferCounter = 0;
             coyoteTimeCounter = 0;
         }
     }
 
-    void CheckGround()
-    {
-        grounded = Physics2D.OverlapAreaAll(groundCheck.bounds.min, groundCheck.bounds.max, groundMask).Length > 0;
-    }
-
     void ApplyFriction()
     {
         if (grounded && xInput == 0)
         {
-            body.velocity *= groundDecay;
-            anim.SetBool("walking", false);
+            _body.velocity *= groundDecay;
+            _anim.SetBool("walking", false);
         }
     }
 
     void ApplyBetterJumpPhysics()
     {
-        if (body.velocity.y < 0)
+        if (_body.velocity.y < 0)
         {
-            body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (body.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (_body.velocity.y > 0 && !Input.GetButton("Jump"))
         {
-            body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
     public void Die()
     {
-        anim.SetTrigger("die");
-        body.velocity = Vector2.zero;
-        body.bodyType = RigidbodyType2D.Static;
+        _collision.enabled = false;
+        _anim.SetTrigger("die");
+        _body.bodyType = RigidbodyType2D.Static;
+        this.enabled = false;
     }
 }

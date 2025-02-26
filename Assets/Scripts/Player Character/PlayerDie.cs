@@ -11,18 +11,22 @@ public class PlayerDie : MonoBehaviour
     {
         _playerMovement = GetComponent<PlayerMovement>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             _playerMovement.Die();
+            FindObjectOfType<DeadTransition>().StartShrink();
         }
     }
     
-    private void Die()
+    public void Die()
     {
-        _skull.SetActive(true);
-        _skull.transform.parent = null;
-        this.gameObject.SetActive(false);
+        var skull = Instantiate(_skull, this.transform.localPosition, Quaternion.identity);
+        skull.transform.localScale = new Vector2(this.transform.localScale.x, 1f);
+        Destroy(gameObject);
     }
+
+
+
 }
