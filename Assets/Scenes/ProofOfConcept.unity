@@ -170,7 +170,6 @@ MonoBehaviour:
   characters:
   - {fileID: 483353143446372292, guid: 3d3636b19da6fc74c9c407bcb42f6c33, type: 3}
   - {fileID: 7404386685265376676, guid: 1e1b5a2e123692a4d81a44174de4d319, type: 3}
-  - {fileID: 7404386685265376676, guid: 1e1b5a2e123692a4d81a44174de4d319, type: 3}
   characterSpawnPoint: {fileID: 0}
   deadTransition: {fileID: 0}
 --- !u!1001 &122872729
@@ -1097,7 +1096,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1199888678545821682, guid: 63f6196bb403334448d1b083a3fa2d83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.291
+      value: 8.44
       objectReference: {fileID: 0}
     - target: {fileID: 1199888678545821682, guid: 63f6196bb403334448d1b083a3fa2d83, type: 3}
       propertyPath: m_LocalPosition.y

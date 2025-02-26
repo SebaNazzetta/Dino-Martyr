@@ -124,7 +124,7 @@ MonoBehaviour:
   acceleration: 1
   groundDecay: 0.6
   maxXSpeed: 3
-  jumpSpeed: 10
+  jumpSpeed: 6
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   coyoteTime: 0.1
