@@ -17,13 +17,14 @@ public class PlayerMovement : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     public float coyoteTime = 0.1f;
     public float jumpBufferTime = 0.1f;
-    public float airControlFactor = 0.8f;  // 🔹 Reduce el control en el aire para evitar saltos inconsistentes
+    public float airControlFactor = 0.8f;
+
+    public bool inWater = false; // Variable para detectar si está en el agua
 
     [HideInInspector] public bool grounded;
     private float xInput;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
-
 
     void Awake()
     {
@@ -65,12 +66,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(xInput) > 0)
         {
-            float increment = xInput * acceleration;
+            float speedModifier = inWater ? 0.5f : 1f; // Reducimos la velocidad en agua
+            float increment = xInput * acceleration * speedModifier;
 
-            // 🔹 Diferente control en el aire para que no afecte el salto
             float controlFactor = grounded ? 1f : airControlFactor;
-
-            float newSpeed = Mathf.Clamp(_body.velocity.x + (increment * controlFactor), -maxXSpeed, maxXSpeed);
+            float newSpeed = Mathf.Clamp(_body.velocity.x + (increment * controlFactor), -maxXSpeed * speedModifier, maxXSpeed * speedModifier);
             _body.velocity = new Vector2(newSpeed, _body.velocity.y);
 
             FaceInput();
@@ -104,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
-            // 🔹 SOLUCIÓN: Restablecemos completamente la velocidad antes de saltar
             _body.velocity = new Vector2(_body.velocity.x * 0.5f, 0);
             _body.velocity += Vector2.up * jumpSpeed;
 
