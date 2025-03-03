@@ -22,7 +22,9 @@ public class PlayerDie : MonoBehaviour
     
     public void Die()
     {
-        var skull = Instantiate(_skull, this.transform.localPosition, Quaternion.identity);
+        float y = this.transform.localPosition.y + 0.5f;
+        Vector2 vector2 = new Vector2(this.transform.localPosition.x, y);
+        var skull = Instantiate(_skull, vector2, Quaternion.identity);
         skull.transform.localScale = new Vector2(this.transform.localScale.x, 1f);
         Destroy(gameObject);
     }

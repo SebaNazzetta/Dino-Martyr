@@ -104,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
-            _body.velocity = new Vector2(_body.velocity.x * 0.5f, 0);
-            _body.velocity += Vector2.up * jumpSpeed;
+            // Aplicamos el salto sin modificar la velocidad en el eje X
+            _body.velocity = new Vector2(_body.velocity.x, jumpSpeed);
 
             jumpBufferCounter = 0;
             coyoteTimeCounter = 0;
@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (grounded && xInput == 0)
         {
-            _body.velocity *= groundDecay;
+            _body.velocity = new Vector2(_body.velocity.x * groundDecay, _body.velocity.y);
             _anim.SetBool("walking", false);
         }
     }
@@ -125,10 +125,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_body.velocity.y < 0)
         {
+            // Aplicamos gravedad adicional cuando el personaje está cayendo
             _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
         else if (_body.velocity.y > 0 && !Input.GetButton("Jump"))
         {
+            // Aplicamos gravedad reducida cuando el personaje está saltando y no se mantiene el botón de salto
             _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
