@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public bool inWater = false; // Variable para detectar si está en el agua
 
     [HideInInspector] public bool grounded;
+    [HideInInspector] public bool isGrabed;
     private float xInput;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
@@ -39,11 +40,13 @@ public class PlayerMovement : MonoBehaviour
         CheckInput();
         HandleJump();
         ApplyBetterJumpPhysics();
+        HandleGrab();
     }
 
     private void FixedUpdate()
     {
         grounded = _playerCollision.IsGrounded();
+        isGrabed = _playerCollision.isGrabed();
         HandleXMovement();
         ApplyFriction();
     }
@@ -78,6 +81,10 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 _anim.SetBool("walking", true);
+            }
+            else
+            {
+                _anim.SetBool("walking", false);
             }
         }
     }
@@ -141,5 +148,10 @@ public class PlayerMovement : MonoBehaviour
         _anim.SetTrigger("die");
         _body.bodyType = RigidbodyType2D.Static;
         this.enabled = false;
+    }
+
+    public void HandleGrab()
+    {
+        _anim.SetBool("grab", isGrabed); // Cambiamos el estado de la animación (true o false)
     }
 }

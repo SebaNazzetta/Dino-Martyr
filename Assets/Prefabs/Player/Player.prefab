@@ -144,7 +144,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.092102766, y: 0.2680968}
+  m_Offset: {x: 0.092102766, y: 0.27318084}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -155,7 +155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6279311, y: 0.4638064}
+  m_Size: {x: 0.6279311, y: 0.45363832}
   m_EdgeRadius: 0
 --- !u!114 &8705715572926310588
 MonoBehaviour:
@@ -180,6 +180,7 @@ MonoBehaviour:
   airControlFactor: 0.8
   inWater: 0
   grounded: 0
+  isGrabed: 0
 --- !u!114 &2813812559936918582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,8 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b626f1f6d095844932d2ddb11019a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundBoxSize: {x: 0.36, y: 0.06}
-  _groundBoxOffset: {x: -0.03, y: 0.51}
+  _groundBoxSize: {x: 0.3, y: 0.06}
+  _groundBoxOffset: {x: -0.05, y: 0.48}
+  _headBoxSize: {x: 0.18, y: 0.06}
+  _headBoxOffset: {x: 0.26, y: -0.02}
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
