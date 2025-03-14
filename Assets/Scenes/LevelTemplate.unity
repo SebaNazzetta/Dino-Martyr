@@ -172,6 +172,8 @@ MonoBehaviour:
   characters:
   - {fileID: 483353143446372292, guid: 3d3636b19da6fc74c9c407bcb42f6c33, type: 3}
   - {fileID: 7404386685265376676, guid: 1e1b5a2e123692a4d81a44174de4d319, type: 3}
+  - {fileID: 483353143446372292, guid: 3d3636b19da6fc74c9c407bcb42f6c33, type: 3}
+  - {fileID: 7404386685265376676, guid: 1e1b5a2e123692a4d81a44174de4d319, type: 3}
   characterSpawnPoint: {fileID: 1972701478}
   deadTransition: {fileID: 420033391}
 --- !u!1001 &130484388
@@ -781,6 +783,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189063206}
     m_Modifications:
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2967213
+      objectReference: {fileID: 0}
     - target: {fileID: 8071987867727233396, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.5
@@ -847,6 +857,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189063206}
     m_Modifications:
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2967213
+      objectReference: {fileID: 0}
     - target: {fileID: 8071987867727233396, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.5
@@ -1435,6 +1457,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1189063206}
     m_Modifications:
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892430854880438574, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2967213
+      objectReference: {fileID: 0}
     - target: {fileID: 8071987867727233396, guid: ea0925f1d03884143b80b4ff2e07760b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.5
