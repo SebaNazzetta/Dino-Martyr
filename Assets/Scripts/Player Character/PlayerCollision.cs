@@ -33,15 +33,9 @@ public class PlayerCollision : MonoBehaviour
             gameObject.transform.position.y - _headBoxOffset.y
         );
 
-        // Depura la posición y el tamaño del OverlapBox
-        Debug.Log("Grab Box Position: " + grabBoxPosition);
-        Debug.Log("Grab Box Size: " + _headBoxSize);
 
         // Verifica si hay una colisión
         bool isGrabed = Physics2D.OverlapBox(grabBoxPosition, _headBoxSize, 0f, _groundMask);
-
-        // Depura el resultado de la colisión
-        Debug.Log("Is Grab Detected: " + isGrabed);
 
         return isGrabed;
     }
