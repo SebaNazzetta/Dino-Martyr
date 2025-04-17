@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2410337549985636991}
   - component: {fileID: 9176549261175484099}
   - component: {fileID: 3638203098854956475}
+  - component: {fileID: 8618933846949083834}
   m_Layer: 7
   m_Name: Sand
   m_TagString: Sand
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -475346723
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ace5425cb7470c4f98cbb504bc10674, type: 3}
+  m_Sprite: {fileID: -2013529608, guid: 7ace5425cb7470c4f98cbb504bc10674, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,3 +146,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBeforeFade: 0
   fadeDuration: 0.5
+--- !u!95 &8618933846949083834
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117239886418033597}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac16bb265e3454b43a1ea5850222f7b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

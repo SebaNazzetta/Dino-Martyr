@@ -11,15 +11,19 @@ public class Sand : MonoBehaviour
     private bool isFading = false;
     private float fadeTimer = 0f;
 
+    private Animator _anim;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isFading && collision.gameObject.CompareTag("Player"))
         {
+            _anim.SetTrigger("banish");
             Invoke(nameof(StartFading), delayBeforeFade);
             isFading = true;
         }
@@ -35,10 +39,10 @@ public class Sand : MonoBehaviour
         if (fadeTimer > 0)
         {
             fadeTimer -= Time.deltaTime;
-            float alpha = Mathf.Clamp01(fadeTimer / fadeDuration);
-            Color color = spriteRenderer.color;
-            color.a = alpha;
-            spriteRenderer.color = color;
+            //float alpha = Mathf.Clamp01(fadeTimer / fadeDuration);
+            //Color color = spriteRenderer.color;
+            //color.a = alpha;
+            //spriteRenderer.color = color;
 
             if (fadeTimer <= 0)
             {
