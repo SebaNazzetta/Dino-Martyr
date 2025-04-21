@@ -53,9 +53,21 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckInput()
     {
-        xInput = Input.GetAxisRaw("Horizontal");
+    #if UNITY_EDITOR || UNITY_STANDALONE
+            xInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpBufferCounter = jumpBufferTime;
+            }
+            else
+            {
+                jumpBufferCounter -= Time.deltaTime;
+            }
+    #else
+        xInput = WorldButtonInput.Instance.xInput;
+
+        if (WorldButtonInput.Instance.jumpPressed)
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -63,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
+    #endif
     }
 
     void HandleXMovement()
@@ -130,14 +143,24 @@ public class PlayerMovement : MonoBehaviour
 
     void ApplyBetterJumpPhysics()
     {
+        // Gravedad extra al caer
         if (_body.velocity.y < 0)
         {
-            // Aplicamos gravedad adicional cuando el personaje está cayendo
             _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (_body.velocity.y > 0 && !Input.GetButton("Jump"))
+
+        // Chequeamos si se mantiene presionado el botón de salto
+        bool jumpHeld;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        jumpHeld = Input.GetButton("Jump");
+#else
+    jumpHeld = WorldButtonInput.Instance.jumpHeld;
+#endif
+
+        // Gravedad reducida si se soltó el botón en pleno ascenso
+        if (_body.velocity.y > 0 && !jumpHeld)
         {
-            // Aplicamos gravedad reducida cuando el personaje está saltando y no se mantiene el botón de salto
             _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }

@@ -17,8 +17,9 @@ public class LevelManager : MonoBehaviour
     }
     public void Start()
     {
-        InstantiateCharacter();
-        StartCoroutine(deadTransition.FadeOut());
+        StartCoroutine(WaitSeconds(0.2f)); //Espera para actualizar el HUD antes de crear el personaje
+        //InstantiateCharacter();
+        //StartCoroutine(deadTransition.FadeOut());
     }
     public void InstantiateCharacter()
     {
@@ -32,5 +33,11 @@ public class LevelManager : MonoBehaviour
             Debug.Log("perdiste");
         }
         
+    }
+    IEnumerator WaitSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        InstantiateCharacter();
+        StartCoroutine(deadTransition.FadeOut());
     }
 }

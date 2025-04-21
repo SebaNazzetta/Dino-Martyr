@@ -8,10 +8,12 @@ public class DeadTransition : MonoBehaviour
     public float shrinkDuration = 1f;
     private Vector2 _originalScale;
     private LevelManager _levelManager;
+    private HudManager _hudManager;
 
     private void Awake()
     {
         _levelManager = FindObjectOfType<LevelManager>();
+        _hudManager = FindObjectOfType<HudManager>();
     }
     void Start()
     {
@@ -46,6 +48,7 @@ public class DeadTransition : MonoBehaviour
 
         _levelManager.InstantiateCharacter();
         imageToShrink.transform.localPosition = FindObjectOfType<PlayerMovement>().transform.position;
+        _hudManager.UpdateHud();
 
         yield return new WaitForSeconds(0.5f); // Espera un segundo antes de restaurar
         elapsedTime = 0f;
