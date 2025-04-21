@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Water
   - Sand
+  - LeftButton
+  - RightButton
+  - JumpButton
   layers:
   - Default
   - TransparentFX
